@@ -16,7 +16,7 @@ if (!$db_selected)
 }
 
  // Selects all the rows in the markers table.
- $query = 'SELECT * FROM markers WHERE 1';
+ $query = 'SELECT * FROM markers ORDER BY lat ASC;';
  $result = mysql_query($query);
  if (!$result) 
  {
