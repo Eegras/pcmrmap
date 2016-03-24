@@ -23,7 +23,7 @@ if (!$result) {
 }
 if (!isset($_POST['clr']))
 {
-	$query = "INSERT INTO markers (`name`, `lat`, `lng`) VALUES ('".md5($_SERVER['REMOTE_ADDR'])."','".mysql_escape_string($_POST['lat'])."','".mysql_escape_string($_POST['lng'])."');";
+	$query = "INSERT INTO markers (`name`, `lat`, `lng`) VALUES ('".md5($_SERVER['REMOTE_ADDR'])."','".mysql_real_escape_string($_POST['lat'])."','".mysql_real_escape_string($_POST['lng'])."');";
 	$result = mysql_query($query);
 	if (!$result) {
 	  die('Invalid query: ' . mysql_error());
