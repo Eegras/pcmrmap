@@ -35,7 +35,7 @@ while ($row = @mysql_fetch_assoc($result))
   $kml[] = ' <Placemark id="placemark' . $row['id'] . '">';
   $kml[] = ' <name>' . $i . '</name>';
   $kml[] = ' <Point>';
-  $kml[] = ' <coordinates>' . $row['lng'] . ','  . $row['lat'] . '</coordinates>';
+  $kml[] = ' <coordinates>' . round($row['lng'],4) . ','  . round($row['lat'],4) . '</coordinates>';
   $kml[] = ' </Point>';
   $kml[] = ' </Placemark>';
   $i++;
