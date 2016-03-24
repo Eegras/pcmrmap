@@ -32,10 +32,10 @@ session_start();
       margin-right: 10px;
       margin-left: 10px;
     }
-    #header div {
+    #header input {
+      font-size: 2em;
       display: block;
-      clear: right;
-      font-size: 2.5em;
+      border-radius: 10px;
     }
     #map {
       position: absolute;
@@ -119,7 +119,7 @@ session_start();
 
   <body>
     <div id="map"></div>
-    <div id="header"><img src="logostrokeroboto.png" /><div id="clear">Clear <i>my</i> marker</div><div id="save" style="display: none;">SAVE</div></div>
+    <div id="header"><img src="logostrokeroboto.png" /><input type="button" value="Clear my marker" id="clear" /><input type="button" value="Save!" id="save" style="display: none;"></div>
   </body>
 
 </html>
