@@ -65,9 +65,11 @@ session_start();
         map.loadFromKML({
           url: 'http://www.eegras.com/map/phpsqlajax_genxml.php?rand='+Math.random(),
           suppressInfoWindows: true,
-          preserveViewport:true
+          preserveViewport:true,
+          click: function(e){
+            console.log(JSON.stringify(e.latLng));
+          }
         });
-
 
         $('#save').click(function(){
           $.ajax({

@@ -1,27 +1,15 @@
 <?php
 require('phpsqlajax_dbinfo.php');
 
- // Opens a connection to a MySQL server.
-$connection = mysql_connect ($server, $username, $password);
-if (!$connection) 
-{
-  die('Not connected : ' . mysql_error());
-}
+$db = new PDO("mysql:host=$server;dbname=$database", $username, $password);
 
-// Sets the active MySQL database.
-$db_selected = mysql_select_db($database, $connection);
-if (!$db_selected) 
+// Selects all the rows in the markers table.
+$query = 'SELECT * FROM markers ORDER BY lat ASC;';
+$result = $db->query($query);
+if (!$result) 
 {
-  die ('Can\'t use db : ' . mysql_error());
+ die('Invalid query: ' . mysql_error());
 }
-
- // Selects all the rows in the markers table.
- $query = 'SELECT * FROM markers ORDER BY lat ASC;';
- $result = mysql_query($query);
- if (!$result) 
- {
-  die('Invalid query: ' . mysql_error());
- }
 
 // Creates an array of strings to hold the lines of the KML file.
 $kml = array('<?xml version="1.0" encoding="UTF-8"?>');
@@ -30,7 +18,7 @@ $kml[] = ' <Document>';
 
 // Iterates through the rows, printing a node for each row.
 $i = 0;
-while ($row = @mysql_fetch_assoc($result)) 
+while ($row = $result->fetch(PDO::FETCH_ASSOC))
 {
   $kml[] = ' <Placemark id="placemark' . $row['id'] . '">';
   $kml[] = ' <name>' . $i . '</name>';
@@ -39,8 +27,10 @@ while ($row = @mysql_fetch_assoc($result))
   $kml[] = ' </Point>';
   $kml[] = ' </Placemark>';
   $i++;
- 
 } 
+
+$result->closeCursor();
+$db = null;
 
 // End XML file
 $kml[] = ' </Document>';
